@@ -1,0 +1,29 @@
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: dimgray;
+}
+
+/* Desktop screen Sizes */
+@media only screen and (min-width: 768px) {
+
+}
+
+/* Tablet Landscape Screen Sizes */
+@media only screen and (min-width: 480px) {
+
+}
+
+/* Mobile Screen Sizes */
+@media only screen and (min-width: 319px) {
+
+}
