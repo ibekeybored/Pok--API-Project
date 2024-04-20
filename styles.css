@@ -80,9 +80,57 @@ body {
 }
 
 #pokemon-info img {
+    position: absolute;
+    top: 50px;
+    left: 200px;
     object-fit: contain;
     height: auto;
     width: auto;
+}
+
+#pokemon-info h2 {
+    position: absolute;
+    top: 0;
+    left: 50px;
+    font-weight: normal;
+    font-size: 20px;
+}
+
+#pokemon-info #pokeTypes {
+    position: absolute;
+    top: 30px;
+    left: 25px;
+    width: 75px;
+}
+
+#pokemon-info #pokemon-cry {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 22px;
+    left: 22px;
+    background-color: rgba(0,0,0,0);
+    border-color: rgba(0,0,0,0);
+}
+
+#pokemon-info #weight {
+    position: absolute;
+    top: 125px;
+    left: 25px;
+}
+
+#pokemon-info #height {
+    position: absolute;
+    top: 150px;
+    left: 25px;
+}
+
+#pokemon-info #backButton {
+    position: absolute;
+    top: 225px;
+    left: 25px;
+    background-color: rgba(0,0,0,0.6);
+    color: rgba(255,255,255,0.75);
 }
 
 /* Mobile Screen Sizes */
