@@ -7,23 +7,123 @@
 
 html {
     box-sizing: border-box;
+    font-family: 'Silkscreen', sans-serif;
 }
 
 body {
     background-color: dimgray;
 }
 
-#pokedex {
+#pokedex{
+    position: relative;
     display: block;
+    width: 600px;
     margin: auto;
+}
+
+#pokedex img {
     width: 600px;
     height: 900px;
+}
+
+#pokedex_screen {
+    position: absolute;
+    top: 205px;
+    left: 105px;
+    height: 270px;
+    width: 390px;
+    color: rgba(0,0,0,0.6);
+    background-color: rgba(0,0,0,0);
+}
+
+#pokelist {
+    height: 270px;
+    width: 390px;
+    overflow-y: auto;
+    /* Hide scrollbar */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+#pokelist ul{
+    list-style: none;
+    font-size: large;
+}
+
+#pokelist li {
+    position: relative;
+    height: 75px;
+    display: flex;
+    align-items: center;
+}
+
+#pokelist li .pokemon-gif {
+    position: absolute;
+    object-fit: contain;
+    height: auto;
+    width: auto;
+}
+
+#pokelist li .pokemon-name {
+    margin-left: 100px;
+}
+
+#pokelist li:hover {
+    color: rgba(34,144,164,0.8);
+}
+
+#pokemon-info {
+    display: none;
+    position: relative;
+    height: 270px;
+    width: 390px;
+}
+
+#pokemon-info img {
+    object-fit: contain;
+    height: auto;
+    width: auto;
 }
 
 /* Mobile Screen Sizes */
 @media only screen and (max-width: 625px) {
     #pokedex {
         width: 400px;
+    }
+
+    #pokedex img{
+        width: 400px;
         height: 600px;
     }
+
+    #pokedex_screen {
+        top: 137px;
+        left: 70px;
+        height: 178px;
+        width: 260px;
+    }
+
+    #pokelist {
+        height: 178px;
+        width: 260px;
+        overflow-y: auto;
+    }
+
+    #pokelist ul{
+        font-size: small;
+    }
+
+    #pokelist li {
+        height: 50px;
+    }
+
+    #pokelist li .pokemon-gif {
+        height: 40px;
+        width: 40px;
+    }
+
+    #pokelist li .pokemon-name {
+        margin-left: 60px;
+    }
+
 }
