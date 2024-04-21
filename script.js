@@ -1,32 +1,33 @@
 
 
-// Anime.js animation for sliding in the pokedex img
+// Anime.js animation for sliding in the Pokedex img from the top
 document.addEventListener("DOMContentLoaded", function() {
     anime({
         targets: '#pokedex',
-        translateY: ['-100%', 0], // Slide in from the top
-        duration: 1000, // Animation duration in milliseconds
-        easing: 'easeInOutQuad', // Easing function
-        delay: 250 // Delay before starting the animation
+        translateY: ['-100%', 0],
+        duration: 1000,
+        easing: 'easeInOutQuad',
+        delay: 250
     });
 });
 
-// Anime.js animation for fading in the pokedex screen
+// Anime.js animation for fading in the Pokedex screen and it's context
 document.addEventListener("DOMContentLoaded", function() {
     anime({
-        targets: '#pokelist', // Targets the pokedex_screen div
-        opacity: [0, 1], // Animate opacity from 0 to 1
-        easing: 'linear', // Easing function
-        duration: 500, // Animation duration in milliseconds
+        targets: '#pokelist',
+        opacity: [0, 1],
+        easing: 'linear',
+        duration: 500,
         delay: 1250
     });
 });
 
+// Using PokeAPI to populate the #pokelist li elements with img and span tags
 document.addEventListener("DOMContentLoaded", function() {
     let pokemonList = document.getElementById("pokelist");
     let pokemonListUl = pokemonList.querySelector("ul");
 
-    // Array to store promises for fetch requests
+    // Array to store promises for fetch requests, we will use this to ensure the Pokemon are populated in correct Pokedex order
     let fetchPromises = [];
 
     for (let i = 1; i <= 151; i++) {
@@ -37,13 +38,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 // Create list item
                 let listItem = document.createElement("li");
 
-                // Create image element
+                // Create image element for small pokemon gif
                 let image = document.createElement("img");
                 image.src = pokemonData.sprites["versions"]["generation-v"]["black-white"]["animated"]["front_default"];
-                image.alt = pokemonData.name; // Set alt attribute to the pokemon's name
+                image.alt = pokemonData.name;
                 image.setAttribute("class", "pokemon-gif");
 
-                // Create span element
+                // Create span element for #pokelist Pokemon name and Pokedex number
                 let span = document.createElement("span");
                 span.textContent = `${String(pokemonData.id).padStart(3, '0')} ${pokemonData.name}`;
                 span.setAttribute("class", "pokemon-name");
@@ -54,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 // Append span to list item
                 listItem.appendChild(span);
 
-                // Add click event listener to each Pokemon list item
+                // Add click event listener to each Pokemon list item to hide pokelist when Pokemon name clicked and reveal #pokemon-info div
                 listItem.addEventListener("click", function() {
                     let pokemonName = this.querySelector("img").getAttribute("alt");
                     fetchPokemonInfo(pokemonName);
@@ -74,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // Sort list items based on their Pokedex number
             listItems.sort(function(a, b){return parseInt(a.textContent.split(' ')[0]) - parseInt(b.textContent.split(' ')[0])});
 
-            // Append sorted list items to the ul element
+            // Append sorted list items to the #pokelist ul element
             listItems.forEach(listItem => pokemonListUl.appendChild(listItem));
 
         })
@@ -83,13 +84,14 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-
+// Function that makes API calls to gather Pokemon data
 function fetchPokemonInfo(pokemonName) {
     let url = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`;
 
     fetch(url)
         .then(response => response.json())
         .then(data => {
+            // Call Function to display data gathered in pokemon-info div
             displayPokemonInfo(data);
             document.getElementById("pokemon-info").style.display = "block";
         })
@@ -98,20 +100,21 @@ function fetchPokemonInfo(pokemonName) {
         });
 }
 
+// Function to create elements for pokemon-info div
 function displayPokemonInfo(pokemonData) {
     let pokemonInfoDiv = document.getElementById("pokemon-info");
 
     // Clear previous info
     pokemonInfoDiv.innerHTML = "";
 
-    // Create elements to display Pokémon info
+    // Create h2 elements to display Pokémon name
     let nameElement = document.createElement("h2");
     nameElement.textContent = pokemonData.name.charAt(0).toUpperCase() + pokemonData.name.slice(1);
 
     // Element that contains Pokemon cry audio
     let pokemonCry = new Audio(pokemonData.cries.latest);
 
-    // Button to play cry audio
+    // Button to play Pokemon cry audio
     let cryButton = document.createElement("button");
     cryButton.setAttribute("id", "pokemon-cry")
 
@@ -123,24 +126,28 @@ function displayPokemonInfo(pokemonData) {
         pokemonCry.play();
     });
 
+    // Create an img element for the large Pokemon gif
     let imageElement = document.createElement("img");
     imageElement.src = pokemonData.sprites.other.showdown.front_default;
     imageElement.alt = pokemonData.name;
 
+    // Pokemon type info
     let types = pokemonData.types.map(type => type.type.name);
     let typesElement = document.createElement("p");
     typesElement.setAttribute("id", "pokeTypes");
     typesElement.textContent = "Types: " + types.join(", ");
 
+    // Pokemon weight info converted to lbs in a p tag
     let weightElement = document.createElement("p");
     weightElement.setAttribute("id", "weight")
     weightElement.textContent = `Weight: ${(pokemonData.weight * 0.220462).toFixed(2)} lbs`;
 
+    // Pokemon height info converted to feet and inches in a p tag
     let heightElement = document.createElement("p");
     heightElement.setAttribute("id", "height");
     heightElement.textContent = `Height: ${Math.floor(pokemonData.height * 0.328084)}ft ${Math.round(((pokemonData.height * 0.328084) - Math.floor(pokemonData.height * 0.328084)) * 12)}in`;
 
-
+    // Back button used to go back to pokelist from pokemon-info
     let backButton = document.createElement("button");
     backButton.setAttribute("id", "backButton");
     backButton.textContent = "Back";
@@ -151,6 +158,7 @@ function displayPokemonInfo(pokemonData) {
         document.getElementById("pokelist").style.display = "block";
     });
 
+    // Add all elements to the pokemon-info div
     pokemonInfoDiv.appendChild(nameElement);
     pokemonInfoDiv.appendChild(imageElement);
     pokemonInfoDiv.appendChild(typesElement);

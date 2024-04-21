@@ -14,6 +14,7 @@ body {
     background-color: dimgray;
 }
 
+/* Styles for Pokedex div */
 #pokedex{
     position: relative;
     display: block;
@@ -21,11 +22,13 @@ body {
     margin: auto;
 }
 
+/* Styles for img elements in Pokedex div*/
 #pokedex img {
     width: 600px;
     height: 900px;
 }
 
+/* Styles for Pokedex Screen div*/
 #pokedex_screen {
     position: absolute;
     top: 205px;
@@ -36,6 +39,7 @@ body {
     background-color: rgba(0,0,0,0);
 }
 
+/* Styles for Pokemon List div*/
 #pokelist {
     height: 270px;
     width: 390px;
@@ -45,11 +49,13 @@ body {
     scrollbar-width: none;
 }
 
+/* Styles for ul element in Pokemon List div*/
 #pokelist ul{
     list-style: none;
     font-size: large;
 }
 
+/* Styles for li elements in Pokemon List div*/
 #pokelist li {
     position: relative;
     height: 75px;
@@ -57,6 +63,7 @@ body {
     align-items: center;
 }
 
+/* Styles for small pokemon gif in Pokemon List */
 #pokelist li .pokemon-gif {
     position: absolute;
     object-fit: scale-down;
@@ -64,14 +71,17 @@ body {
     width: 100px;
 }
 
+/* Styles for span in Pokemon List */
 #pokelist li .pokemon-name {
     margin-left: 100px;
 }
 
+/* Styles for when mouse hover over span in Pokemon List */
 #pokelist li:hover {
     color: rgba(34,144,164,0.8);
 }
 
+/* Styles for Pokemon Info div */
 #pokemon-info {
     display: none;
     position: relative;
@@ -79,6 +89,7 @@ body {
     width: 390px;
 }
 
+/* Styles for large Pokemon gif in Pokemon Info div */
 #pokemon-info img {
     position: absolute;
     top: 50px;
@@ -88,6 +99,7 @@ body {
     width: 175px;
 }
 
+/* Styles for h2 tag in Pokemon Info div */
 #pokemon-info h2 {
     position: absolute;
     top: 0;
@@ -96,6 +108,7 @@ body {
     font-size: 20px;
 }
 
+/* Styles for pokeType p tags in Pokemon Info div */
 #pokemon-info #pokeTypes {
     position: absolute;
     top: 30px;
@@ -103,6 +116,7 @@ body {
     width: 75px;
 }
 
+/* Styles for Pokemon Cry button in Pokemon Info div */
 #pokemon-info #pokemon-cry {
     margin: 0;
     padding: 0;
@@ -113,18 +127,21 @@ body {
     border-color: rgba(0,0,0,0);
 }
 
+/* Styles for Pokemon Weight p in Pokemon Info div */
 #pokemon-info #weight {
     position: absolute;
     top: 125px;
     left: 25px;
 }
 
+/* Styles for Pokemon Height p in Pokemon Info div */
 #pokemon-info #height {
     position: absolute;
     top: 150px;
     left: 25px;
 }
 
+/* Styles for back button in Pokemon Info div */
 #pokemon-info #backButton {
     position: absolute;
     top: 225px;
@@ -133,17 +150,20 @@ body {
     color: rgba(255,255,255,0.75);
 }
 
-/* Mobile Screen Sizes */
+/* Styles for Mobile Devices */
 @media only screen and (max-width: 625px) {
+    /* Mobile Styles for Pokedex div */
     #pokedex {
         width: 400px;
     }
 
+    /* Mobile Styles for image in Pokedex div */
     #pokedex img{
         width: 400px;
         height: 600px;
     }
 
+    /* Mobile Styles for Pokedex Screen div */
     #pokedex_screen {
         top: 137px;
         left: 70px;
@@ -151,34 +171,41 @@ body {
         width: 260px;
     }
 
+    /* Mobile Styles for Pokemon List div */
     #pokelist {
         height: 178px;
         width: 260px;
         overflow-y: auto;
     }
 
+    /* Mobile Styles for ul element in Pokemon List div */
     #pokelist ul{
         font-size: small;
     }
 
+    /* Mobile Styles for li elements in Pokemon List div */
     #pokelist li {
         height: 50px;
     }
 
+    /* Mobile Styles for small Pokemon gif images in Pokemon List */
     #pokelist li .pokemon-gif {
         height: 40px;
         width: 40px;
     }
 
+    /* Mobile Styles for span elements in Pokemon List */
     #pokelist li .pokemon-name {
         margin-left: 60px;
     }
 
+    /* Mobile Styles for Pokemon Info div */
     #pokemon-info {
         height: 178px;
         width: 260px;
     }
 
+    /* Mobile Styles for large Pokemon gif in Pokemon Info div */
     #pokemon-info img {
         top: 20px;
         left: 125px;
@@ -187,15 +214,18 @@ body {
         width: 125px;
     }
 
+    /* Mobile Styles for h2 element in Pokemon Info div */
     #pokemon-info h2 {
         font-size: 17px;
     }
 
+    /* Mobile Styles for Pokemon Cry button in Pokemon Info div */
     #pokemon-info #pokemon-cry {
         top: 17px;
         left: 17px;
     }
 
+    /* Mobile Styles for Pokemon types in Pokemon Info div */
     #pokemon-info #pokeTypes {
         top: 25px;
         left: 15px;
@@ -203,12 +233,14 @@ body {
         font-size: 14px;
     }
 
+    /* Mobile Styles for Weight info in p tag in Pokemon Info div */
     #pokemon-info #weight {
         top: 110px;
         left: 15px;
         font-size: 14px;
     }
 
+    /* Mobile Styles for Height info in p tag in Pokemon Info div */
     #pokemon-info #height {
         position: absolute;
         top: 125px;
@@ -216,6 +248,7 @@ body {
         font-size: 14px;
     }
 
+    /* Mobile Styles for back button in Pokemon Info div */
     #pokemon-info #backButton {
         top: 158px;
         left: 15px;
