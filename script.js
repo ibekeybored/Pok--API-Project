@@ -1,26 +1,16 @@
 
+// Selecting the pokedex div to slide in from the top
+const pokedex = document.querySelector("#pokedex");
 
-// Anime.js animation for sliding in the Pokedex img from the top
-document.addEventListener("DOMContentLoaded", function() {
-    anime({
-        targets: '#pokedex',
-        translateY: ['-100%', 0],
-        duration: 1000,
-        easing: 'easeInOutQuad',
-        delay: 250
-    });
-});
+// GSAP animation for sliding in the div from the top
+gsap.fromTo(pokedex, { y: "-100%" }, { y: "0%", duration: 1, ease: "cubicBezier(0.25, 0.1, 0.25, 1)", delay: 0.5 });
 
-// Anime.js animation for fading in the Pokedex screen and it's context
-document.addEventListener("DOMContentLoaded", function() {
-    anime({
-        targets: '#pokelist',
-        opacity: [0, 1],
-        easing: 'linear',
-        duration: 500,
-        delay: 1250
-    });
-});
+// Selecting the pokelist div to fade in elements
+const pokelist = document.querySelector("#pokelist");
+
+// GSAP animation for fading in the div's content
+gsap.fromTo(pokelist, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "linear", delay: 1.25 });
+
 
 // Using PokeAPI to populate the #pokelist li elements with img and span tags
 document.addEventListener("DOMContentLoaded", function() {
