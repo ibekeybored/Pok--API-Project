@@ -13,81 +13,74 @@ gsap.fromTo(pokelist, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "linear
 
 
 // Using PokeAPI to populate the #pokelist li elements with img and span tags
-document.addEventListener("DOMContentLoaded", function() {
-    let pokemonList = document.getElementById("pokelist");
-    let pokemonListUl = pokemonList.querySelector("ul");
+document.addEventListener("DOMContentLoaded", async function() {
+    // Selecting the pokelist container
+    const pokemonList = document.getElementById("pokelist");
+    // Selecting the unordered list inside the pokelist container
+    const pokemonListUl = pokemonList.querySelector("ul");
 
-    // Array to store promises for fetch requests, we will use this to ensure the Pokemon are populated in correct Pokedex order
-    let fetchPromises = [];
-
+    // Loop through each Pokemon from 1 to 151
     for (let i = 1; i <= 151; i++) {
-        // Push each fetch promise to the array
-        fetchPromises.push(fetch(`https://pokeapi.co/api/v2/pokemon/${i}`)
-            .then(response => response.json())
-            .then(pokemonData => {
-                // Create list item
-                let listItem = document.createElement("li");
+        try {
+            // Fetch data for the current Pokemon from the PokeAPI
+            const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}`);
+            const pokemonData = await response.json();
 
-                // Create image element for small pokemon gif
-                let image = document.createElement("img");
-                image.src = pokemonData.sprites["versions"]["generation-v"]["black-white"]["animated"]["front_default"];
-                image.alt = pokemonData.name;
-                image.setAttribute("class", "pokemon-gif");
+            // Create a list item for the current Pokemon
+            const listItem = document.createElement("li");
+            // Create an image element for the Pokemon's sprite
+            const image = document.createElement("img");
+            // Set the source and alt attributes of the image
+            image.src = pokemonData.sprites.versions["generation-v"]["black-white"].animated.front_default;
+            image.alt = pokemonData.name;
+            image.setAttribute("class", "pokemon-gif");
 
-                // Create span element for #pokelist Pokemon name and Pokedex number
-                let span = document.createElement("span");
-                span.textContent = `${String(pokemonData.id).padStart(3, '0')} ${pokemonData.name}`;
-                span.setAttribute("class", "pokemon-name");
+            // Create a span element for the Pokemon's name and ID
+            const span = document.createElement("span");
+            // Format the Pokemon's ID and name
+            span.textContent = `${String(pokemonData.id).padStart(3, '0')} ${pokemonData.name}`;
+            span.setAttribute("class", "pokemon-name");
 
-                // Append image to list item
-                listItem.appendChild(image);
+            // Append the image and span to the list item
+            listItem.appendChild(image);
+            listItem.appendChild(span);
 
-                // Append span to list item
-                listItem.appendChild(span);
+            // Add a click event listener to the list item
+            listItem.addEventListener("click", function() {
+                // Get the name of the clicked Pokemon
+                const pokemonName = this.querySelector("img").getAttribute("alt");
+                // Fetch additional info for the clicked Pokemon
+                fetchPokemonInfo(pokemonName);
+                // Hide the pokelist container
+                document.getElementById("pokelist").style.display = "none";
+            });
 
-                // Add click event listener to each Pokemon list item to hide pokelist when Pokemon name clicked and reveal #pokemon-info div
-                listItem.addEventListener("click", function() {
-                    let pokemonName = this.querySelector("img").getAttribute("alt");
-                    fetchPokemonInfo(pokemonName);
-                    document.getElementById("pokelist").style.display = "none";
-                });
-
-                // Return the list item
-                return listItem;
-            })
-            .catch(error => console.error('Error fetching Pokemon data:', error))
-        );
+            // Append the list item to the unordered list
+            pokemonListUl.appendChild(listItem);
+        } catch (error) {
+            // Handle errors if fetching data fails
+            console.error('Error fetching Pokemon data:', error);
+        }
     }
-
-    // Wait for all fetch requests to complete
-    Promise.all(fetchPromises)
-        .then(listItems => {
-            // Sort list items based on their Pokedex number
-            listItems.sort(function(a, b){return parseInt(a.textContent.split(' ')[0]) - parseInt(b.textContent.split(' ')[0])});
-
-            // Append sorted list items to the #pokelist ul element
-            listItems.forEach(listItem => pokemonListUl.appendChild(listItem));
-
-        })
-
-        .catch(error => console.error('Error fetching Pokémon data:', error));
 });
 
-
 // Function that makes API calls to gather Pokemon data
-function fetchPokemonInfo(pokemonName) {
-    let url = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`;
+async function fetchPokemonInfo(pokemonName) {
+    // Construct the URL for fetching Pokemon info
+    const url = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`;
 
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            // Call Function to display data gathered in pokemon-info div
-            displayPokemonInfo(data);
-            document.getElementById("pokemon-info").style.display = "block";
-        })
-        .catch(error => {
-            console.log("Error fetching Pokémon data:", error);
-        });
+    try {
+        // Fetch data for the specified Pokemon
+        const response = await fetch(url);
+        const data = await response.json();
+        // Display the fetched Pokemon info
+        displayPokemonInfo(data);
+        // Show the pokemon-info container
+        document.getElementById("pokemon-info").style.display = "block";
+    } catch (error) {
+        // Handle errors if fetching data fails
+        console.error("Error fetching Pokémon data:", error);
+    }
 }
 
 // Function to create elements for pokemon-info div
